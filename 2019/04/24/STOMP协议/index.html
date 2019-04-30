@@ -18,18 +18,18 @@
   
   
   <title>STOMP协议+springboot-websocket | Hexo</title>
-  <meta name="description" content="介绍stomp是一个协议，用于处理 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很大的浪费，WebSocket是针对HTTP在这种情况下的补充。对于 WebSocket 来说，它必须依赖 HTTP 协议进行一次">
+  <meta name="description" content="介绍stomp是一个协议，主要用于处理发布/订阅模式的消息处理。stomp可以基于websocket构建，这样就可以实现网页与服务器的发布/订阅模式的消息通信了。 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很">
 <meta name="keywords" content="STOMP,WebSocket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STOMP协议+springboot-websocket">
 <meta property="og:url" content="http://yoursite.com/2019/04/24/STOMP协议/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="介绍stomp是一个协议，用于处理 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很大的浪费，WebSocket是针对HTTP在这种情况下的补充。对于 WebSocket 来说，它必须依赖 HTTP 协议进行一次">
+<meta property="og:description" content="介绍stomp是一个协议，主要用于处理发布/订阅模式的消息处理。stomp可以基于websocket构建，这样就可以实现网页与服务器的发布/订阅模式的消息通信了。 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T08:41:12.096Z">
+<meta property="og:updated_time" content="2019-04-30T09:10:17.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STOMP协议+springboot-websocket">
-<meta name="twitter:description" content="介绍stomp是一个协议，用于处理 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很大的浪费，WebSocket是针对HTTP在这种情况下的补充。对于 WebSocket 来说，它必须依赖 HTTP 协议进行一次">
+<meta name="twitter:description" content="介绍stomp是一个协议，主要用于处理发布/订阅模式的消息处理。stomp可以基于websocket构建，这样就可以实现网页与服务器的发布/订阅模式的消息通信了。 http、websocket、stomp的关系HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。 HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很">
   <!-- Canonical links -->
   <link rel="canonical" href="http://yoursite.com/2019/04/24/STOMP协议/index.html">
   
@@ -348,14 +348,14 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>stomp是一个协议，用于处理</p>
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>stomp是一个协议，主要用于处理发布/订阅模式的消息处理。stomp可以基于websocket构建，这样就可以实现网页与服务器的发布/订阅模式的消息通信了。</p>
 <h2 id="http、websocket、stomp的关系"><a href="#http、websocket、stomp的关系" class="headerlink" title="http、websocket、stomp的关系"></a>http、websocket、stomp的关系</h2><p>HTTP、WebSocket 等应用层协议，都是基于 TCP 协议来传输数据的。</p>
 <p>HTTP不足在于它与服务器的全双工通信依靠轮询实现，对于需要从服务器主动发送数据的情境，会给服务器资源造成很大的浪费，WebSocket是针对HTTP在这种情况下的补充。对于 WebSocket 来说，它必须依赖 HTTP 协议进行一次握手 ，握手成功后，数据就直接从 TCP 通道传输，与 HTTP 无关了。</p>
 <p>WebSocket是一个完整的应用层协议，包含一套标准的 API 。</p>
 <p>STOMP即Simple (or Streaming) Text Orientated Messaging Protocol，简单(流)文本定向消息协议，它提供了一个可互操作的连接格式，允许STOMP客户端与任意STOMP消息代理（Broker）进行交互。</p>
 <p>STOMP协议可以建立在WebSocket之上，也可以建立在其他应用层协议之上。</p>
 <h2 id="STOMP-JS"><a href="#STOMP-JS" class="headerlink" title="STOMP.JS"></a>STOMP.JS</h2><ul>
-<li>stomp.js是对stomp客户端的封装。</li>
+<li>stomp.js是对stomp客户端的封装。简化了开发成本，例如心跳处理只需要配置间隔时间完全不用关注具体实现。</li>
 <li>提供多种版本供开发使用</li>
 <li>stomp.js不仅可以连接常规的stomp服务。还可以连接一些MQ服务。例如,RabbitMQ,ActiveMQ等。<h2 id="STOMP-API"><a href="#STOMP-API" class="headerlink" title="STOMP API"></a>STOMP API</h2></li>
 </ul>
